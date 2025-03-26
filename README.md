@@ -58,12 +58,12 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement delete function in Subscriber repository.`
     -   [x] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
-    -   [ ] Commit: `Create Notification service struct skeleton.`
-    -   [ ] Commit: `Implement subscribe function in Notification service.`
-    -   [ ] Commit: `Implement subscribe function in Notification controller.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification service.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification controller.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
+    -   [x] Commit: `Create Notification service struct skeleton.`
+    -   [x] Commit: `Implement subscribe function in Notification service.`
+    -   [x] Commit: `Implement subscribe function in Notification controller.`
+    -   [x] Commit: `Implement unsubscribe function in Notification service.`
+    -   [x] Commit: `Implement unsubscribe function in Notification controller.`
+    -   [x] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
 -   **STAGE 3: Implement notification mechanism**
     -   [ ] Commit: `Implement update method in Subscriber model to send notification HTTP requests.`
     -   [ ] Commit: `Implement notify function in Notification service to notify each Subscriber.`
@@ -91,5 +91,18 @@ The decision between using a `Vec` (list) and `DashMap` (hash map) depends on ef
 Rust enforces strict thread safety, making concurrent access to shared resources a challenge. In the BambangShop case, `SUBSCRIBERS` is a globally shared data structure, which requires a safe way to handle concurrent reads and writes. `DashMap` is designed specifically for this purpose, offering fine-grained locking that only locks individual entries rather than the entire map. While it is possible to implement a Singleton manually using `Arc<RwLock<HashMap>>`, this approach introduces additional complexity and performance overhead due to frequent locking and unlocking operations. `DashMap` effectively acts as a thread-safe Singleton without the need for manual synchronization, making it the best choice for managing subscribers in a concurrent Rust environment.
 
 #### Reflection Publisher-2
+
+Here are the questions for this reflection:
+1. In the Model-View Controller (MVC) compound pattern, there is no “Service” and “Repository”. Model in MVC covers both data storage and business logic. Explain based on your understanding of design principles, why we need to separate “Service” and “Repository” from a Model?
+
+Separating "Service" and "Repository" from the Model follows the Single Responsibility Principle (SRP), making the codebase more maintainable and scalable. The Repository layer is responsible for data access and persistence, abstracting away database operations, while the Service layer handles business logic and orchestrates interactions between repositories and other components. By doing this, we achieve a cleaner separation of concerns, making it easier to modify database logic without affecting business rules and vice versa. This also enables better unit testing since business logic can be tested independently of the data storage mechanism.
+
+2. What happens if we only use the Model? Explain your imagination on how the interactions between each model (Program, Subscriber, Notification) affect the code complexity for each model?
+
+If we only use the Model without separating Service and Repository, the code complexity increases significantly. Each model (Program, Subscriber, Notification) would be responsible for both storing data and implementing business logic, leading to tight coupling. For instance, if a change is required in how data is retrieved or modified, it might necessitate changes across multiple models, increasing the risk of unintended side effects. Additionally, interactions between models would become more tangled, as each model might need to query and modify other models directly. This results in a monolithic design, making debugging, scaling, and extending the system more challenging.
+
+3. Have you explored more about Postman? Tell us how this tool helps you to test your current work. You might want to also list which features in Postman you are interested in or feel like it is helpful to help your Group Project or any of your future software engineering projects.
+
+Postman is an API testing tool that significantly improves the development workflow by allowing us to send HTTP requests, inspect responses, and automate testing. It helps us test endpoints without needing a front-end, ensuring that our API functions correctly. One of the most useful features is the ability to save and organize API requests into collections, making it easier to test different endpoints systematically. Another helpful feature is environment variables, which allow switching between different setups (e.g., development, staging, production) seamlessly. Automated testing and scripting in Postman also help validate responses and detect issues early. These features are invaluable for our Group Project and future software engineering projects, as they ensure API reliability and streamline debugging.
 
 #### Reflection Publisher-3
